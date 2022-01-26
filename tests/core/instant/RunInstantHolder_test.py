@@ -2,7 +2,7 @@ import time
 import unittest
 from datetime import datetime
 
-from automata.instant.RunInstantHolder import RunInstantHolder
+from automata.core.instant.RunInstantHolder import RunInstantHolder
 
 
 class RunInstantHolderTestCase(unittest.TestCase):
