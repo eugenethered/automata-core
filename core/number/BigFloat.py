@@ -16,5 +16,8 @@ class BigFloat:
             number_values = args[0].split('.')
             self.set(int(number_values[0]), int(number_values[1]))
 
+    def stringify(self, delimiter):
+        return f'{self.number}{delimiter}{self.fraction}'
+
     def __repr__(self):
         return f'{self.number}.{self.fraction}'

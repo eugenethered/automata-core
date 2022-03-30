@@ -21,6 +21,10 @@ class BigFloatTestCase(unittest.TestCase):
         bigfloat = BigFloat('1000000000.123456789012')
         self.assertEqual(str(bigfloat), '1000000000.123456789012', 'stringed number should be stringed')
 
+    def test_should_specify_to_string_delimiter(self):
+        bigfloat = BigFloat(1000000000, 123456789012)
+        self.assertEqual(bigfloat.stringify(':'), '1000000000:123456789012')
+
 
 if __name__ == '__main__':
     unittest.main()
