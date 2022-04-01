@@ -21,3 +21,6 @@ class BigFloat:
 
     def __repr__(self):
         return f'{self.number}.{self.fraction}'
+
+    def __eq__(self, other):
+        return str(self) == str(other)
