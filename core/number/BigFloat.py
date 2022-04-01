@@ -26,13 +26,24 @@ class BigFloat:
 
     @staticmethod
     def leading_zeros_count(value):
-        return len([n for n in list(value) if n == '0'])
+        leading_zero_count = 0
+        numbers = list(value)
+        for n in numbers:
+            if n != '0':
+                break
+            if n == '0':
+                leading_zero_count += 1
+        return leading_zero_count
 
     def stringify(self, delimiter):
         return f'{self.number}{delimiter}{self.fraction}'
 
     def __repr__(self):
-        return f'{self.number}.{self.fraction}'
+        if self.fraction_leading_zeros > 0:
+            fraction_value = f'{self.fraction}'.zfill(len(str(self.fraction)) + self.fraction_leading_zeros)
+            return f'{self.number}.{fraction_value}'
+        else:
+            return f'{self.number}.{self.fraction}'
 
     def __eq__(self, other):
         return str(self) == str(other)

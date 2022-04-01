@@ -37,6 +37,12 @@ class BigFloatTestCase(unittest.TestCase):
         self.assertEqual(bigfloat.fraction, 12)
         self.assertEqual(bigfloat.fraction_leading_zeros, 10)
 
+    def test_should_to_string_combined_floating_point_number_with_leading_zeros(self):
+        bigfloat = BigFloat(0, 12, 10)
+        self.assertEqual(str(bigfloat), '0.000000000012', 'leading separate leading zero fraction')
+        bigfloat = BigFloat('0.000000000012')
+        self.assertEqual(str(bigfloat), '0.000000000012', 'stringed number should have leading zero fraction')
+
 
 if __name__ == '__main__':
     unittest.main()
