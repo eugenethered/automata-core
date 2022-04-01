@@ -25,6 +25,18 @@ class BigFloatTestCase(unittest.TestCase):
         bigfloat = BigFloat(1000000000, 123456789012)
         self.assertEqual(bigfloat.stringify(':'), '1000000000:123456789012')
 
+    def test_should_store_large_number_as_big_float_with_leading_fraction_zeros(self):
+        bigfloat = BigFloat(1000000000, 12, 9)
+        self.assertEqual(bigfloat.number, 1000000000)
+        self.assertEqual(bigfloat.fraction, 12)
+        self.assertEqual(bigfloat.fraction_leading_zeros, 9)
+
+    def test_should_store_big_float_with_fraction_having_leading_zeros(self):
+        bigfloat = BigFloat('0.000000000012')
+        self.assertEqual(bigfloat.number, 0)
+        self.assertEqual(bigfloat.fraction, 12)
+        self.assertEqual(bigfloat.fraction_leading_zeros, 10)
+
 
 if __name__ == '__main__':
     unittest.main()

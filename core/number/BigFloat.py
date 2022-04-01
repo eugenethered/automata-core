@@ -3,18 +3,30 @@ class BigFloat:
     def __init__(self, *args):
         self.number = 0
         self.fraction = 0
+        self.fraction_leading_zeros = 0
         self.parse_args(args)
 
-    def set(self, number, fraction):
+    def set(self, number, fraction, fraction_leading_zeros=0):
         self.number = number
         self.fraction = fraction
+        self.fraction_leading_zeros = fraction_leading_zeros
 
     def parse_args(self, args):
-        if len(args) > 1:
+        if len(args) > 2:
+            self.set(args[0], args[1], args[2])
+        elif len(args) > 1:
             self.set(args[0], args[1])
         elif isinstance(args[0], str):
             number_values = args[0].split('.')
-            self.set(int(number_values[0]), int(number_values[1]))
+            (fraction, leading_zeros) = self.fraction_data(number_values[1])
+            self.set(int(number_values[0]), fraction, leading_zeros)
+
+    def fraction_data(self, value):
+        return int(value), self.leading_zeros_count(value)
+
+    @staticmethod
+    def leading_zeros_count(value):
+        return len([n for n in list(value) if n == '0'])
 
     def stringify(self, delimiter):
         return f'{self.number}{delimiter}{self.fraction}'
