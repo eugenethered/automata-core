@@ -24,6 +24,12 @@ class RunInstantHolderTestCase(unittest.TestCase):
         result = RunInstantHolder.numeric_run_instance()
         self.assertEqual(1639068768.919605, result)
 
+    def test_instant_conversion_as_number_represented_time_with_no_delimiter(self):
+        instant = datetime.fromisoformat('2021-12-09T16:52:48.919605+00:00')
+        RunInstantHolder.initialize(instant)
+        result = RunInstantHolder.numeric_run_instance(delimiter='')
+        self.assertEqual(1639068768919605, result)
+
     def test_multiple_initialization_should_different(self):
         RunInstantHolder.initialize()
         result = RunInstantHolder.numeric_run_instance()

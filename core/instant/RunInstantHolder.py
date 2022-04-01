@@ -12,5 +12,9 @@ class RunInstantHolder:
             RunInstantHolder.run_instant = datetime.now(timezone.utc)
 
     @staticmethod
-    def numeric_run_instance():
-        return RunInstantHolder.run_instant.timestamp() if type(RunInstantHolder.run_instant) is datetime else RunInstantHolder.run_instant
+    def numeric_run_instance(delimiter='.'):
+        if type(RunInstantHolder.run_instant) is datetime:
+            numeric_value = RunInstantHolder.run_instant.timestamp()
+            return numeric_value if delimiter == '.' else int(str(numeric_value).replace('.', delimiter))
+        else:
+            return RunInstantHolder.run_instant
