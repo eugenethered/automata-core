@@ -7,4 +7,4 @@ from core.number.BigFloat import BigFloat
 class ExchangeRate:
     currency: str
     to_currency: str
-    price: BigFloat = None
+    rate: BigFloat = None
