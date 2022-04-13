@@ -1,6 +1,6 @@
 import unittest
 
-from core.trade.InstrumentTrade import InstrumentTrade
+from core.trade.InstrumentTrade import InstrumentTrade, Status
 
 
 class InstrumentTradeTestCase(unittest.TestCase):
@@ -16,6 +16,18 @@ class InstrumentTradeTestCase(unittest.TestCase):
         self.assertEqual('BTC', trade.instrument_from)
         self.assertEqual('USDT', trade.instrument_to)
         self.assertEqual(0.0025, trade.quantity)
+
+    def test_should_have_new_status_and_no_description_for_trade(self):
+        trade = InstrumentTrade('USDT', 'BTC', 100)
+        self.assertEqual('new', trade.status.value)
+        self.assertEqual(None, trade.description)
+
+    def test_should_have_set_status_and_description_for_trade(self):
+        trade = InstrumentTrade('USDT', 'BTC', 100)
+        trade.status = Status.EXECUTED
+        trade.description = '27'
+        self.assertEqual('executed', trade.status.value)
+        self.assertEqual('27', trade.description)
 
 
 if __name__ == '__main__':
