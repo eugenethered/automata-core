@@ -10,6 +10,11 @@ class BigFloatTestCase(unittest.TestCase):
         self.assertEqual(bigfloat.number, 1000000000)
         self.assertEqual(bigfloat.fraction, 123456789012)
 
+    def test_should_store_number_with_out_fraction_string_as_big_float(self):
+        bigfloat = BigFloat('100')
+        self.assertEqual(bigfloat.number, 100)
+        self.assertEqual(bigfloat.fraction, 0)
+
     def test_should_store_large_number_as_big_float(self):
         bigfloat = BigFloat(1000000000, 123456789012)
         self.assertEqual(bigfloat.number, 1000000000)

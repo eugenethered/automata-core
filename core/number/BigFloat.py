@@ -17,9 +17,12 @@ class BigFloat:
         elif len(args) > 1:
             self.set(args[0], args[1])
         elif isinstance(args[0], str):
-            number_values = args[0].split('.')
-            (fraction, leading_zeros) = self.fraction_data(number_values[1])
-            self.set(int(number_values[0]), fraction, leading_zeros)
+            if args[0].find('.') == -1:
+                self.set(int(args[0]), 0, 0)
+            else:
+                number_values = args[0].split('.')
+                (fraction, leading_zeros) = self.fraction_data(number_values[1])
+                self.set(int(number_values[0]), fraction, leading_zeros)
 
     def fraction_data(self, value):
         return int(value), self.leading_zeros_count(value)

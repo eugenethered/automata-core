@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 from enum import Enum
 
+from core.number.BigFloat import BigFloat
+
 
 class Status(Enum):
     NEW = 'new'
@@ -14,6 +16,6 @@ class Status(Enum):
 class InstrumentTrade:
     instrument_from: str
     instrument_to: str
-    quantity: float
+    quantity: BigFloat
     status: Status = field(default=Status.NEW)
     description: str = field(default=None)
