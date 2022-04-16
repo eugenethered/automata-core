@@ -19,3 +19,4 @@ class InstrumentTrade:
     quantity: BigFloat
     status: Status = field(default=Status.NEW)
     description: str = field(default=None)
+    order_id: str = field(default=None)
