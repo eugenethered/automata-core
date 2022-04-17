@@ -21,7 +21,7 @@ jobs:
       run: |
         echo | python .scripts/release_indicator.py >> $GITHUB_ENV
     - name: Use version release indicator
-      if: env.RELEASE_TO_PIPY == true
+      if: env.RELEASE_TO_PIPY == 'true'
       run: echo "release to PIPY! $RELEASE_TO_PIPY"
 
 #  deploy:
