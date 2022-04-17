@@ -22,7 +22,7 @@ jobs:
         echo | python .scripts/release_indicator.py >> $GITHUB_ENV
     - name: Use version release indicator
       if: env.RELEASE_TO_PIPY
-      run: echo "release to PIPY! {env.RELEASE_TO_PIPY}"
+      run: echo "release to PIPY! ${env.RELEASE_TO_PIPY}"
 
 #  deploy:
 #    runs-on: ubuntu-latest
