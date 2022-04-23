@@ -44,31 +44,6 @@ class BigFloat:
     def is_zero(self):
         return self.number == 0 and self.fraction == 0
 
-    def add(self, other):
-        number = self.number + other.number
-        fraction = self.__add_fractions(other)
-        fraction_leading_zeros = self.calculate_different_leading_zeros(other)
-        return BigFloat(number, fraction, fraction_leading_zeros)
-
-    def __add_fractions(self, other):
-        if other.fraction_leading_zeros > self.fraction_leading_zeros:
-            leading_zeros = other.fraction_leading_zeros - self.fraction_leading_zeros
-            fraction = self.fraction * (10 ** leading_zeros)
-            return fraction + other.fraction
-        elif other.fraction_leading_zeros < self.fraction_leading_zeros:
-            leading_zeros = self.fraction_leading_zeros - other.fraction_leading_zeros
-            fraction = other.fraction * (10 ** leading_zeros)
-            return fraction + self.fraction
-        else:
-            return self.fraction + other.fraction
-
-    def calculate_different_leading_zeros(self, other):
-        if self.fraction_leading_zeros > other.fraction_leading_zeros:
-            return other.fraction_leading_zeros
-        elif self.fraction_leading_zeros < other.fraction_leading_zeros:
-            return self.fraction_leading_zeros
-        return self.fraction_leading_zeros
-
     def __repr__(self):
         if self.fraction_leading_zeros > 0:
             fraction_value = f'{self.fraction}'.zfill(len(str(self.fraction)) + self.fraction_leading_zeros)
