@@ -48,6 +48,58 @@ class BigFloatTestCase(unittest.TestCase):
         bigfloat = BigFloat('0.000000000012')
         self.assertEqual(str(bigfloat), '0.000000000012', 'stringed number should have leading zero fraction')
 
+    def test_should_verify_is_zero(self):
+        bigfloat = BigFloat('0.00')
+        self.assertTrue(bigfloat.is_zero())
+        bigfloat = BigFloat('0')
+        self.assertTrue(bigfloat.is_zero())
+        bigfloat = BigFloat(0, 0)
+        self.assertTrue(bigfloat.is_zero())
+        bigfloat = BigFloat(0, 0, 0)
+        self.assertTrue(bigfloat.is_zero())
+
+    def test_should_add_zero_based_big_floats(self):
+        amount = BigFloat('0.00')
+        other_amount = BigFloat('0.00')
+        result = amount.add(other_amount)
+        self.assertEqual(result, BigFloat('0.00'))
+
+    def test_should_add_number_based_big_floats(self):
+        amount = BigFloat('1.00')
+        other_amount = BigFloat('1.00')
+        result = amount.add(other_amount)
+        self.assertEqual(result, BigFloat('2.00'))
+
+    def test_should_add_fraction_based_big_floats(self):
+        amount = BigFloat('0.01')
+        other_amount = BigFloat('0.01')
+        result = amount.add(other_amount)
+        self.assertEqual(result, BigFloat('0.02'))
+
+    def test_should_add_large_fraction_based_big_floats(self):
+        amount = BigFloat('0.0100000001')
+        other_amount = BigFloat('0.0100000001')
+        result = amount.add(other_amount)
+        self.assertEqual(result, BigFloat('0.0200000002'))
+
+    def test_should_add_large_fraction_which_needs_padding(self):
+        amount = BigFloat('0.000000001')
+        other_amount = BigFloat('0.0000000001')
+        result = amount.add(other_amount)
+        self.assertEqual(result, BigFloat('0.0000000011'))
+
+    def test_should_add_large_fraction_which_blows_to_next_fraction_unit(self):
+        amount = BigFloat('0.0000000009')
+        other_amount = BigFloat('0.0000000009')
+        result = amount.add(other_amount)
+        self.assertEqual(result, BigFloat('0.0000000018'))
+
+    def test_should_add_large_fraction_which_blows_to_next_number_unit(self):
+        amount = BigFloat('0.9')
+        other_amount = BigFloat('0.9')
+        result = amount.add(other_amount)
+        self.assertEqual(result, BigFloat('1.8'))
+
 
 if __name__ == '__main__':
     unittest.main()
