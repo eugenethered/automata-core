@@ -5,6 +5,9 @@ from core.number.BigFloat import BigFloat
 
 @dataclass
 class ExchangeRate:
-    currency: str
-    to_currency: str
+    instrument: str
+    to_instrument: str
     rate: BigFloat = None
+
+    def __iter__(self):
+        return iter((self.instrument, self.to_instrument, self.rate))
