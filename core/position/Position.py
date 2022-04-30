@@ -7,3 +7,4 @@ from core.number.BigFloat import BigFloat
 class Position:
     instrument: str
     quantity: BigFloat
+    instant: int
