@@ -86,6 +86,16 @@ class BigFloatTestCase(unittest.TestCase):
         self.assertEqual(bigfloat.fraction_leading_zeros, 6)
         self.assertEqual(str(bigfloat), '100.00000012')
 
+    def test_should_not_sign(self):
+        bigfloat = BigFloat('100.00')
+        self.assertFalse(bigfloat.signed)
+        self.assertEqual(str(bigfloat), '100.00')
+
+    def test_should_sign(self):
+        bigfloat = BigFloat('-100.00')
+        self.assertTrue(bigfloat.signed)
+        self.assertEqual(str(bigfloat), '-100.00')
+
 
 if __name__ == '__main__':
     unittest.main()

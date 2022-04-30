@@ -4,12 +4,14 @@ class BigFloat:
         self.number = 0
         self.fraction = 0
         self.fraction_leading_zeros = 0
+        self.signed = False
         self.parse_args(args)
 
     def set(self, number, fraction, fraction_leading_zeros=0):
         self.number = number
         self.fraction = fraction
         self.fraction_leading_zeros = fraction_leading_zeros
+        self.signed = True if self.number < 0 else False
 
     def parse_args(self, args):
         if len(args) > 2:
