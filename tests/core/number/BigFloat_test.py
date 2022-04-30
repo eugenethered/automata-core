@@ -58,6 +58,34 @@ class BigFloatTestCase(unittest.TestCase):
         bigfloat = BigFloat(0, 0, 0)
         self.assertTrue(bigfloat.is_zero())
 
+    def test_should_whole_number_should_string_to_correct_places(self):
+        bigfloat = BigFloat('100')
+        self.assertEqual(bigfloat.number, 100)
+        self.assertEqual(bigfloat.fraction, 0)
+        self.assertEqual(bigfloat.fraction_leading_zeros, 0)
+        self.assertEqual(str(bigfloat), '100.0')
+
+    def test_should_zero_fraction_number_should_string_to_correct_places(self):
+        bigfloat = BigFloat('100.00')
+        self.assertEqual(bigfloat.number, 100)
+        self.assertEqual(bigfloat.fraction, 0)
+        self.assertEqual(bigfloat.fraction_leading_zeros, 1)
+        self.assertEqual(str(bigfloat), '100.00')
+
+    def test_should_without_zero_fraction_number_should_string_to_correct_places(self):
+        bigfloat = BigFloat('100.12')
+        self.assertEqual(bigfloat.number, 100)
+        self.assertEqual(bigfloat.fraction, 12)
+        self.assertEqual(bigfloat.fraction_leading_zeros, 0)
+        self.assertEqual(str(bigfloat), '100.12')
+
+    def test_should_with_multiple_zero_fraction_number_should_string_to_correct_places(self):
+        bigfloat = BigFloat('100.00000012')
+        self.assertEqual(bigfloat.number, 100)
+        self.assertEqual(bigfloat.fraction, 12)
+        self.assertEqual(bigfloat.fraction_leading_zeros, 6)
+        self.assertEqual(str(bigfloat), '100.00000012')
+
 
 if __name__ == '__main__':
     unittest.main()

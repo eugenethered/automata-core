@@ -31,7 +31,7 @@ class BigFloat:
     def leading_zeros_count(value):
         leading_zero_count = 0
         numbers = list(value)
-        for n in numbers:
+        for n in numbers[:-1]:
             if n != '0':
                 break
             if n == '0':
