@@ -46,12 +46,19 @@ class BigFloat:
     def is_zero(self):
         return self.number == 0 and self.fraction == 0
 
+    def fraction_fill(self):
+        return f'{self.fraction}'.zfill(len(str(self.fraction)) + self.fraction_leading_zeros)
+
     def __repr__(self):
         if self.fraction_leading_zeros > 0:
-            fraction_value = f'{self.fraction}'.zfill(len(str(self.fraction)) + self.fraction_leading_zeros)
-            return f'{self.number}.{fraction_value}'
+            return f'{self.number}.{self.fraction_fill()}'
         else:
             return f'{self.number}.{self.fraction}'
 
     def __eq__(self, other):
         return str(self) == str(other)
+
+    def __lt__(self, other):
+        number_is_less = self.number <= other.number
+        fraction_is_less = int(self.fraction_fill()) <= int(other.fraction_fill())
+        return number_is_less and fraction_is_less
