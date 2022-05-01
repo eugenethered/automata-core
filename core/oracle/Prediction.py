@@ -1,10 +1,10 @@
 from dataclasses import dataclass
-
 from typing import List
+
+from core.number.BigFloat import BigFloat
 
 
 @dataclass
 class Prediction:
     outcome: List[str]
-    # todo: use enhanced version of Big Float
-    profit: float = 0.0
+    profit: BigFloat
