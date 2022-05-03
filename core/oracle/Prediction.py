@@ -8,4 +8,4 @@ from core.number.BigFloat import BigFloat
 class Prediction:
     outcome: List[str]
     profit: BigFloat
-    force: False
+    forced: bool = False
