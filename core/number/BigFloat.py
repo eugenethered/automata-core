@@ -59,6 +59,10 @@ class BigFloat:
         return str(self) == str(other)
 
     def __lt__(self, other):
-        number_is_less = self.number <= other.number
-        fraction_is_less = int(self.fraction_fill()) <= int(other.fraction_fill())
-        return number_is_less and fraction_is_less
+        number_is_less = self.number < other.number
+        if number_is_less:
+            return True
+        fraction_is_less = int(self.fraction_fill()) < int(other.fraction_fill())
+        if fraction_is_less:
+            return True
+        return False

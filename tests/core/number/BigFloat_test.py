@@ -98,10 +98,13 @@ class BigFloatTestCase(unittest.TestCase):
 
     def test_should_have_float_less_than(self):
         self.assertTrue(BigFloat('100.0000000001') < BigFloat('100.0000000002'))
-        self.assertTrue(BigFloat('100.0000000001') < BigFloat('100.0000000001'))
         self.assertTrue(BigFloat('100.0000000001') < BigFloat('200.0000000001'))
+        self.assertTrue(BigFloat('100.0000000000') < BigFloat('100.0000000001'))
         self.assertFalse(BigFloat('100.0000000002') < BigFloat('100.0000000001'))
         self.assertFalse(BigFloat('200.0000000001') < BigFloat('100.0000000001'))
+
+    def test_should_have_float_not_less_than(self):
+        self.assertFalse(BigFloat('100.0000000001') < BigFloat('100.0000000001'))
 
 
 if __name__ == '__main__':
