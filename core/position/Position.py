@@ -8,3 +8,4 @@ class Position:
     instrument: str
     quantity: BigFloat
     instant: int
+    exchanged_from: str = None
