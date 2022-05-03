@@ -7,5 +7,5 @@ from core.number.BigFloat import BigFloat
 @dataclass
 class Prediction:
     outcome: List[str]
-    profit: BigFloat
+    percent: BigFloat
     forced: bool = False
