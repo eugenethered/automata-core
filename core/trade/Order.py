@@ -24,3 +24,4 @@ class Order:
     order_id: str
     order_type: OrderType
     status: Status
+    interval: int
