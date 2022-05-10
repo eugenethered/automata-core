@@ -1,6 +1,6 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
 class Ignore:
-    ignore: bool = False
+    ignore: bool = field(default=False, init=False, )
