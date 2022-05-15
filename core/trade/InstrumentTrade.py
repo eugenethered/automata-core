@@ -17,6 +17,7 @@ class InstrumentTrade:
     instrument_from: str
     instrument_to: str
     quantity: BigFloat
+    price: BigFloat
     status: Status = field(default=Status.NEW)
     description: str = field(default=None)
     order_id: str = field(default=None)

@@ -21,6 +21,7 @@ class Order:
     instrument_from: str
     instrument_to: str
     quantity: BigFloat
+    price: BigFloat
     order_id: str
     order_type: OrderType
     status: Status
