@@ -26,3 +26,4 @@ class Order:
     status: Status
     interval: int
     price: BigFloat = field(default=None)
+    value: BigFloat = field(default=None)
