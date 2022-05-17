@@ -27,3 +27,4 @@ class InstrumentTrade:
     status: Status = field(default=Status.NEW)
     description: str = field(default=None)
     order_id: str = field(default=None)
+    interval: int = field(default=None)
