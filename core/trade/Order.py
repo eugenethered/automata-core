@@ -34,6 +34,6 @@ class Order:
     order_id: str
     order_type: OrderType
     status: Status
-    interval: int
+    instant: int
     price: BigFloat = field(default=None)
     value: BigFloat = field(default=None)

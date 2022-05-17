@@ -14,7 +14,7 @@ class OrderTestCase(unittest.TestCase):
         self.assertEqual(order.order_id, '8888-8888')
         self.assertEqual(order.order_type.value, 'market')
         self.assertEqual(order.status.value, 'executed')
-        self.assertEqual(order.interval, 1)
+        self.assertEqual(order.instant, 1)
 
     def test_should_have_executed_order_with_price(self):
         order = Order('OTC', 'GBP', BigFloat('100.01'), '8888-8888', OrderType.MARKET, Status.EXECUTED, 1, BigFloat('1.101'))
@@ -24,7 +24,7 @@ class OrderTestCase(unittest.TestCase):
         self.assertEqual(order.order_id, '8888-8888')
         self.assertEqual(order.order_type.value, 'market')
         self.assertEqual(order.status.value, 'executed')
-        self.assertEqual(order.interval, 1)
+        self.assertEqual(order.instant, 1)
         self.assertEqual(order.price, BigFloat('1.101'))
 
     def test_should_have_executed_order_with_value(self):
@@ -35,7 +35,7 @@ class OrderTestCase(unittest.TestCase):
         self.assertEqual(order.order_id, '8888-8888')
         self.assertEqual(order.order_type.value, 'market')
         self.assertEqual(order.status.value, 'executed')
-        self.assertEqual(order.interval, 1)
+        self.assertEqual(order.instant, 1)
         self.assertEqual(order.price, BigFloat('1.101'))
         self.assertEqual(order.value, BigFloat('110.11101'))
 
