@@ -25,6 +25,12 @@ class InstrumentTradeTestCase(unittest.TestCase):
         self.assertEqual('101.01', trade.quantity)
         self.assertEqual('1.01', trade.price)
 
+    def test_should_have_value(self):
+        trade = InstrumentTrade('OTC', 'BTC', BigFloat('101.01'), BigFloat('1.01'), BigFloat('102.0201'))
+        self.assertEqual('OTC', trade.instrument_from)
+        self.assertEqual('BTC', trade.instrument_to)
+        self.assertEqual('102.0201', trade.value)
+
     def test_should_have_new_status_and_no_description_for_trade(self):
         trade = InstrumentTrade('OTC', 'BTC', BigFloat('100'))
         self.assertEqual('new', trade.status.value)
