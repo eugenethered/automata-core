@@ -39,6 +39,14 @@ class OrderTestCase(unittest.TestCase):
         self.assertEqual(order.price, BigFloat('1.101'))
         self.assertEqual(order.value, BigFloat('110.11101'))
 
+    def test_should_parse_order_status(self):
+        status = Status.parse('new')
+        self.assertEqual(status, Status.NEW)
+
+    def test_should_parse_order_type(self):
+        order_type = OrderType.parse('market')
+        self.assertEqual(order_type, OrderType.MARKET)
+
 
 if __name__ == '__main__':
     unittest.main()

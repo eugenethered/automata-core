@@ -10,10 +10,20 @@ class Status(Enum):
     EXECUTED = 'executed'
     ERROR = 'error'
 
+    @staticmethod
+    def parse(value):
+        result = [member for name, member in Status.__members__.items() if member.value.lower() == value.lower()]
+        return result[0]
+
 
 class OrderType(Enum):
     LIMIT = 'limit'
     MARKET = 'market'
+
+    @staticmethod
+    def parse(value):
+        result = [member for name, member in OrderType.__members__.items() if member.value.lower() == value.lower()]
+        return result[0]
 
 
 @dataclass
