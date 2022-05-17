@@ -46,6 +46,21 @@ class InstrumentTradeTestCase(unittest.TestCase):
         self.assertEqual('27', trade.description)
         self.assertEqual(1, trade.instant)
 
+    def test_should_test_equality_on_instruments_status_and_order_id(self):
+        trade = InstrumentTrade('OTC', 'BTC', BigFloat('101.01'), BigFloat('1.01'), BigFloat('102.0201'), status=Status.EXECUTED, order_id='8888-8888')
+        other = InstrumentTrade('OTC', 'BTC', BigFloat('202.02'), BigFloat('2.02'), BigFloat('408.0804'), status=Status.EXECUTED, order_id='8888-8888')
+        self.assertEqual(trade, other)
+
+    def test_should_test_not_equal_when_order_id_is_different(self):
+        trade = InstrumentTrade('OTC', 'BTC', BigFloat('101.01'), BigFloat('1.01'), BigFloat('102.0201'), status=Status.EXECUTED, order_id='1111-1111')
+        other = InstrumentTrade('OTC', 'BTC', BigFloat('202.02'), BigFloat('2.02'), BigFloat('408.0804'), status=Status.EXECUTED, order_id='8888-8888')
+        self.assertNotEqual(trade, other)
+
+    def test_should_test_not_equal_when_status_is_different(self):
+        trade = InstrumentTrade('OTC', 'BTC', BigFloat('101.01'), BigFloat('1.01'), BigFloat('102.0201'), status=Status.NEW, order_id='8888-8888')
+        other = InstrumentTrade('OTC', 'BTC', BigFloat('202.02'), BigFloat('2.02'), BigFloat('408.0804'), status=Status.EXECUTED, order_id='8888-8888')
+        self.assertNotEqual(trade, other)
+
 
 if __name__ == '__main__':
     unittest.main()

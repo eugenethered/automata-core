@@ -20,6 +20,26 @@ class PositionTestCase(unittest.TestCase):
         self.assertEqual(position.instant, 1)
         self.assertEqual(position.exchanged_from, 'OTC')
 
+    def test_should_be_equal_when_instrument_exchanged_from_and_instant_are_equal(self):
+        position = Position(instrument='GBP', quantity=BigFloat('1000.01'), instant=1, exchanged_from='OTC')
+        other = Position(instrument='GBP', quantity=BigFloat('2000.02'), instant=1, exchanged_from='OTC')
+        self.assertEqual(position, other)
+
+    def test_should_not_be_equal_when_instrument_is_different(self):
+        position = Position(instrument='BTC', quantity=BigFloat('1000.01'), instant=1, exchanged_from='OTC')
+        other = Position(instrument='GBP', quantity=BigFloat('2000.02'), instant=1, exchanged_from='OTC')
+        self.assertNotEqual(position, other)
+
+    def test_should_not_be_equal_when_exchanged_from_is_different(self):
+        position = Position(instrument='BTC', quantity=BigFloat('1000.01'), instant=1, exchanged_from='OTC')
+        other = Position(instrument='BTC', quantity=BigFloat('2000.02'), instant=1, exchanged_from='GBP')
+        self.assertNotEqual(position, other)
+
+    def test_should_not_be_equal_when_instant_is_different(self):
+        position = Position(instrument='BTC', quantity=BigFloat('1000.01'), instant=1, exchanged_from='OTC')
+        other = Position(instrument='BTC', quantity=BigFloat('2000.02'), instant=2, exchanged_from='OTC')
+        self.assertNotEqual(position, other)
+
 
 if __name__ == '__main__':
     unittest.main()

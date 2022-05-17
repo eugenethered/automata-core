@@ -28,3 +28,6 @@ class InstrumentTrade:
     description: str = field(default=None)
     order_id: str = field(default=None)
     instant: int = field(default=None)
+
+    def __eq__(self, other):
+        return f'{self.instrument_from}{self.instrument_to}{self.status.value}{self.order_id}' == f'{other.instrument_from}{other.instrument_to}{other.status.value}{other.order_id}'
