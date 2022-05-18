@@ -1,7 +1,8 @@
 import argparse
 
+from metainfo.MetaInfo import MetaInfo
+
 from core.arguments.ParseDictionaryArgs import ParseDictionaryArgs
-from core.meta.MetaInfo import MetaInfo
 
 
 def option_arg_parser() -> argparse.ArgumentParser:
