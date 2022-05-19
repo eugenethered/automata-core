@@ -5,9 +5,9 @@ from metainfo.MetaInfo import MetaInfo
 from core.arguments.ParseDictionaryArgs import ParseDictionaryArgs
 
 
-def option_arg_parser() -> argparse.ArgumentParser:
+def option_arg_parser(package_name) -> argparse.ArgumentParser:
 
-    meta_info = MetaInfo()
+    meta_info = MetaInfo(package_name)
     version = meta_info.get_version()
     description = meta_info.get_description()
 
@@ -26,9 +26,9 @@ def option_arg_parser() -> argparse.ArgumentParser:
     return command_line_argument_parser
 
 
-def url_option_arg_parser() -> argparse.ArgumentParser:
+def url_option_arg_parser(package_name) -> argparse.ArgumentParser:
 
-    meta_info = MetaInfo()
+    meta_info = MetaInfo(package_name)
     version = meta_info.get_version()
     description = meta_info.get_description()
 
