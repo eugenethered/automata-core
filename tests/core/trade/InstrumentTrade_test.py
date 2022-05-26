@@ -1,7 +1,7 @@
 import unittest
 
 from core.number.BigFloat import BigFloat
-from core.trade.InstrumentTrade import InstrumentTrade, Status
+from core.trade.InstrumentTrade import InstrumentTrade, Status, TradeMode
 
 
 class InstrumentTradeTestCase(unittest.TestCase):
@@ -60,6 +60,21 @@ class InstrumentTradeTestCase(unittest.TestCase):
         trade = InstrumentTrade('OTC', 'BTC', BigFloat('101.01'), BigFloat('1.01'), BigFloat('102.0201'), status=Status.NEW, order_id='8888-8888')
         other = InstrumentTrade('OTC', 'BTC', BigFloat('202.02'), BigFloat('2.02'), BigFloat('408.0804'), status=Status.EXECUTED, order_id='8888-8888')
         self.assertNotEqual(trade, other)
+
+    def test_instrument_trade_should_have_default_trade_mode(self):
+        trade = InstrumentTrade('OTC', 'BTC', BigFloat('100'))
+        self.assertEqual(trade.mode, TradeMode.TRADE)
+
+    def test_instrument_trade_should_beset_to_predict_mode(self):
+        trade = InstrumentTrade('OTC', 'BTC', BigFloat('100'))
+        trade.mode = TradeMode.PREDICT
+        self.assertEqual(trade.mode, TradeMode.PREDICT)
+
+    def test_trading_mode_should_parse_correctly(self):
+        trade_mode = TradeMode.parse('trade')
+        self.assertEqual(trade_mode, TradeMode.TRADE)
+        trade_mode_case = TradeMode.parse('pReDict')
+        self.assertEqual(trade_mode_case, TradeMode.PREDICT)
 
 
 if __name__ == '__main__':

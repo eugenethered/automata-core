@@ -17,6 +17,16 @@ class Status(Enum):
         return result[0]
 
 
+class TradeMode(Enum):
+    TRADE = 'trade'
+    PREDICT = 'predict'
+
+    @staticmethod
+    def parse(value):
+        result = [member for name, member in TradeMode.__members__.items() if member.value.lower() == value.lower()]
+        return result[0]
+
+
 @dataclass
 class InstrumentTrade:
     instrument_from: str
@@ -28,6 +38,7 @@ class InstrumentTrade:
     description: str = field(default=None)
     order_id: str = field(default=None)
     instant: int = field(default=None)
+    mode: TradeMode = field(default=TradeMode.TRADE)
 
     def __eq__(self, other):
         return f'{self.instrument_from}{self.instrument_to}{self.status.value}{self.order_id}' == f'{other.instrument_from}{other.instrument_to}{other.status.value}{other.order_id}'
