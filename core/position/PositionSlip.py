@@ -13,5 +13,4 @@ class Status(Enum):
 class PositionSlip:
     instrument: str
     quantity: BigFloat
-    instant: int
     status: Status = field(default=Status.NEW)
