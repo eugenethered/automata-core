@@ -8,3 +8,6 @@ class InstrumentExchange:
 
     def __iter__(self):
         return iter((self.instrument, self.to_instrument))
+
+    def __repr__(self):
+        return f'{self.instrument}/{self.to_instrument}'

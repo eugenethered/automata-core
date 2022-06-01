@@ -15,6 +15,10 @@ class InstrumentExchangeTestCase(unittest.TestCase):
         self.assertEqual('BTC', instrument)
         self.assertEqual('USDT', to_instrument)
 
+    def test_stringify_instrument_exchange(self):
+        instrument_exchange = InstrumentExchange('BTC', 'USDT')
+        self.assertEqual('BTC/USDT', str(instrument_exchange))
+
 
 if __name__ == '__main__':
     unittest.main()
