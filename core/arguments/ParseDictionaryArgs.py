@@ -13,4 +13,4 @@ class ParseDictionaryArgs(argparse.Action):
             key, value = value.split('=')
             getattr(namespace, self.dest)[key] = value
 
-        getattr(namespace, self.dest)['version'] = parser.get_default('version')
+        getattr(namespace, self.dest)['VERSION'] = parser.get_default('version')
