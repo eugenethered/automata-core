@@ -4,7 +4,7 @@ from enum import Enum
 from core.number.BigFloat import BigFloat
 
 
-class Status(Enum):
+class Status(str, Enum):
     NEW = 'new'
     USED = 'used'
 

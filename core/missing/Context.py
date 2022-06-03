@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Context(Enum):
+class Context(str, Enum):
     EXCHANGE = 'exchange'
     TRADE = 'trade'
 

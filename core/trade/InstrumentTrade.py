@@ -4,7 +4,7 @@ from enum import Enum
 from core.number.BigFloat import BigFloat
 
 
-class Status(Enum):
+class Status(str, Enum):
     NEW = 'new'
     SUBMITTED = 'submitted'
     CANCELLED = 'cancelled'
@@ -17,7 +17,7 @@ class Status(Enum):
         return result[0]
 
 
-class TradeMode(Enum):
+class TradeMode(str, Enum):
     TRADE = 'trade'
     PREDICT = 'predict'
 
