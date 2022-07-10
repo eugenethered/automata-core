@@ -9,6 +9,7 @@ class InstrumentExchangeTestCase(unittest.TestCase):
         instrument_exchange = InstrumentExchange(instrument='OTC', to_instrument='BTC')
         self.assertEqual('OTC', instrument_exchange.instrument)
         self.assertEqual('BTC', instrument_exchange.to_instrument)
+        self.assertEqual(None, instrument_exchange.precision)
 
     def test_unpack_instrument_exchange(self):
         (instrument, to_instrument) = InstrumentExchange('OTC', 'BTC')
@@ -23,6 +24,13 @@ class InstrumentExchangeTestCase(unittest.TestCase):
         instrument_exchange = InstrumentExchange('OTC', 'BTC')
         inverted_instrument_exchange = instrument_exchange.invert()
         self.assertEqual('BTC/OTC', str(inverted_instrument_exchange))
+
+    def test_update_instrument_exchange_with_precision(self):
+        instrument_exchange = InstrumentExchange(instrument='OTC', to_instrument='BTC')
+        instrument_exchange.precision = 18
+        self.assertEqual('OTC', instrument_exchange.instrument)
+        self.assertEqual('BTC', instrument_exchange.to_instrument)
+        self.assertEqual(18, instrument_exchange.precision)
 
 
 if __name__ == '__main__':

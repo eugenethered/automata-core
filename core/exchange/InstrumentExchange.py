@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class InstrumentExchange:
     instrument: str
     to_instrument: str
+    precision: int = None
 
     def invert(self):
         return InstrumentExchange(self.to_instrument, self.instrument)
