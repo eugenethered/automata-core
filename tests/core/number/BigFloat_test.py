@@ -35,7 +35,7 @@ class BigFloatTestCase(unittest.TestCase):
 
     def test_should_represent_big_float_without_decimals(self):
         bigfloat = BigFloat('1000000000')
-        self.assertEqual(str(bigfloat), '1000000000')
+        self.assertEqual(str(bigfloat), '1000000000.0')
 
     def test_should_represent_big_float_with_only_decimals(self):
         bigfloat = BigFloat('0.0025')
@@ -51,7 +51,7 @@ class BigFloatTestCase(unittest.TestCase):
         bigfloat = BigFloat('1000000000.000000000000000001')
         other = BigFloat('-0.000000000000000001')
         result = bigfloat + other
-        self.assertEqual(str(result), '1000000000')
+        self.assertEqual(str(result), '1000000000.0')
 
     def test_should_add_negatives(self):
         bigfloat = BigFloat('-1000000000.000000000000000001')
@@ -75,7 +75,7 @@ class BigFloatTestCase(unittest.TestCase):
         bigfloat = BigFloat('-1000000000.000000000000000001')
         other = BigFloat('-0.000000000000000001')
         result = bigfloat - other
-        self.assertEqual(str(result), '-1000000000')
+        self.assertEqual(str(result), '-1000000000.0')
 
     def test_should_multiply(self):
         bigfloat = BigFloat('100000000000000000000000000.100000000000000000')
@@ -103,12 +103,48 @@ class BigFloatTestCase(unittest.TestCase):
     def test_should_not_chop_remaining_zeros_from_whole_number(self):
         bigfloat = BigFloat('100')
         bigfloat.chop_zeros()
-        self.assertEqual(str(bigfloat), '100')
+        self.assertEqual(str(bigfloat), '100.0')
 
     def test_should_compare_equality(self):
         bigfloat = BigFloat('100.0001000')
         other = BigFloat('100.0001')
         self.assertEqual(bigfloat, other)
+
+    def test_should_crack_apart_numbers_and_decimals(self):
+        bigfloat = BigFloat('1000000000.123456789012')
+        (number_str, decimal_str) = bigfloat.crack()
+        self.assertEqual(number_str, '1000000000')
+        self.assertEqual(decimal_str, '123456789012')
+
+    def test_should_crack_apart_numbers_and_decimals_with_zero_decimals(self):
+        bigfloat = BigFloat('1000000000.0')
+        (number_str, decimal_str) = bigfloat.crack()
+        self.assertEqual(number_str, '1000000000')
+        self.assertEqual(decimal_str, '0')
+
+    def test_should_crack_apart_numbers_and_decimals_with_no_decimals(self):
+        bigfloat = BigFloat('1000000000')
+        (number_str, decimal_str) = bigfloat.crack()
+        self.assertEqual(number_str, '1000000000')
+        self.assertEqual(decimal_str, '0')
+
+    def test_should_crack_apart_numbers_and_decimals_with_zero_numbers(self):
+        bigfloat = BigFloat('0.123456789012')
+        (number_str, decimal_str) = bigfloat.crack()
+        self.assertEqual(number_str, '0')
+        self.assertEqual(decimal_str, '123456789012')
+
+    def test_should_crack_zeros(self):
+        bigfloat = BigFloat('0.0')
+        (number_str, decimal_str) = bigfloat.crack()
+        self.assertEqual(number_str, '0')
+        self.assertEqual(decimal_str, '0')
+
+    def test_should_crack_zero(self):
+        bigfloat = BigFloat('0')
+        (number_str, decimal_str) = bigfloat.crack()
+        self.assertEqual(number_str, '0')
+        self.assertEqual(decimal_str, '0')
 
 
 if __name__ == '__main__':

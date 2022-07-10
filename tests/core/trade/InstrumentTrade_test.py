@@ -10,7 +10,7 @@ class InstrumentTradeTestCase(unittest.TestCase):
         trade = InstrumentTrade('OTC', 'BTC', BigFloat('100'))
         self.assertEqual('OTC', trade.instrument_from)
         self.assertEqual('BTC', trade.instrument_to)
-        self.assertEqual('100', trade.quantity)
+        self.assertEqual('100.0', trade.quantity)
         self.assertEqual(None, trade.instant)
 
     def test_should_have_instruments_to_trade_with_fractional_quantity(self):

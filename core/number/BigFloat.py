@@ -98,7 +98,7 @@ class BigFloat:
 
     def __str__(self):
         self.chop_zeros()
-        return str(self.number) if self.decimals == 0 else self.build_complete_number()
+        return self.build_complete_number()
 
     def __repr__(self):
         return str(self)
@@ -120,4 +120,13 @@ class BigFloat:
         number_str = str(self.number)
         if self.decimals > len(number_str):
             return f'0.{number_str.rjust(self.decimals, "0")}'
-        return f'{number_str[:-self.decimals]}.{number_str[-self.decimals:]}'
+        if self.decimals == 0:
+            return f'{self.number}.0'
+        complete_number = f'{number_str[:-self.decimals]}.{number_str[-self.decimals:]}'
+        return f'0{complete_number}' if complete_number[0:1] == '.' else complete_number
+
+    def crack(self):
+        complete_number = self.build_complete_number()
+        if complete_number.find('.') > -1:
+            return complete_number.split('.')
+        return complete_number, '0'
