@@ -1,68 +1,123 @@
+import re
+
+
 class BigFloat:
 
     def __init__(self, *args):
+        self.base = 10
+        self.precision = 18
         self.number = 0
-        self.fraction = 0
-        self.fraction_leading_zeros = 0
-        self.signed = False
+        self.decimals = 0
         self.parse_args(args)
 
-    def set(self, number, fraction, fraction_leading_zeros=0):
-        self.number = number
-        self.fraction = fraction
-        self.fraction_leading_zeros = fraction_leading_zeros
-        self.signed = True if self.number < 0 else False
-
     def parse_args(self, args):
-        if len(args) > 2:
-            self.set(args[0], args[1], args[2])
-        elif len(args) > 1:
-            self.set(args[0], args[1])
-        elif isinstance(args[0], str):
-            if args[0].find('.') == -1:
-                self.set(int(args[0]), 0, 0)
-            else:
-                number_values = args[0].split('.')
-                (fraction, leading_zeros) = self.fraction_data(number_values[1])
-                self.set(int(number_values[0]), fraction, leading_zeros)
-
-    def fraction_data(self, value):
-        return int(value), self.leading_zeros_count(value)
-
-    @staticmethod
-    def leading_zeros_count(value):
-        leading_zero_count = 0
-        numbers = list(value)
-        for n in numbers[:-1]:
-            if n != '0':
-                break
-            if n == '0':
-                leading_zero_count += 1
-        return leading_zero_count
-
-    def stringify(self, delimiter):
-        return f'{self.number}{delimiter}{self.fraction}'
-
-    def is_zero(self):
-        return self.number == 0 and self.fraction == 0
-
-    def fraction_fill(self):
-        return f'{self.fraction}'.zfill(len(str(self.fraction)) + self.fraction_leading_zeros)
-
-    def __repr__(self):
-        if self.fraction_leading_zeros > 0:
-            return f'{self.number}.{self.fraction_fill()}'
+        if len(args) > 1:
+            self.number = int(args[0])
+            self.decimals = int(args[1])
         else:
-            return f'{self.number}.{self.fraction}'
+            decimal_marker_pos = args[0].find('.')
+            if decimal_marker_pos > -1:
+                self.number = int(args[0].replace('.', ''))
+                self.decimals = len(args[0]) - decimal_marker_pos - 1
+            else:
+                self.number = int(args[0])
+
+    def add(self, other):
+        if self.decimals == other.decimals:
+            result = self.number + other.number
+            return BigFloat(result, self.decimals)
+        else:
+            smaller, bigger = [other, self] if self.decimals > other.decimals else [self, other]
+            exponent = bigger.decimals - smaller.decimals
+            normalised = smaller.number * (self.base ** exponent)
+            result = normalised + bigger.number
+            return BigFloat(result, bigger.decimals)
+
+    def subtract(self, other):
+        negated = BigFloat(-other.number, other.decimals)
+        return self.add(negated)
+
+    def multiply(self, other):
+        result = self.number * other.number
+        return BigFloat(result, self.decimals + other.decimals)
+
+    def divide(self, other):
+        distance = self.precision - self.decimals + other.decimals
+        if distance == 0:
+            numerator = self.number
+        elif distance < 0:
+            exponent = self.base ** -distance
+            numerator = self.number // exponent
+        else:
+            exponent = self.base ** distance
+            numerator = self.number * exponent
+        result, mod = divmod(numerator, other.number)
+        result = result + 1 if result < 0 and mod else result
+        return BigFloat(result, self.precision)
+
+    def gt(self, other):
+        delta = self.subtract(other)
+        return delta.number > 0
+
+    def ge(self, other):
+        delta = self.subtract(other)
+        return delta.number >= 0
+
+    def lt(self, other):
+        return other.gt(self)
+
+    def le(self, other):
+        return other.ge(self)
+
+    def __add__(self, other):
+        return self.add(other)
+
+    def __sub__(self, other):
+        return self.subtract(other)
+
+    def __mul__(self, other):
+        return self.multiply(other)
+
+    def __truediv__(self, other):
+        return self.divide(other)
+
+    def __lt__(self, other):
+        return self.lt(other)
+
+    def __le__(self, other):
+        return self.le(other)
+
+    def __gt__(self, other):
+        return self.gt(other)
+
+    def __ge__(self, other):
+        return self.ge(other)
 
     def __eq__(self, other):
         return str(self) == str(other)
 
-    def __lt__(self, other):
-        number_is_less = self.number < other.number
-        if number_is_less:
-            return True
-        fraction_is_less = int(self.fraction_fill()) < int(other.fraction_fill())
-        if fraction_is_less:
-            return True
-        return False
+    def __str__(self):
+        self.chop_zeros()
+        return str(self.number) if self.decimals == 0 else self.build_complete_number()
+
+    def __repr__(self):
+        return str(self)
+
+    def chop_zeros(self):
+        if self.decimals == 0:
+            return
+        number_str = self.build_complete_number()
+        decimal_marker_pos = number_str.find('.')
+        decimals_str = number_str[decimal_marker_pos+1:]
+        match_trailing_zeros = re.search('(0+$)', decimals_str)
+        if match_trailing_zeros:
+            trailing_zeros_len = len(match_trailing_zeros.group(1))
+            self.decimals -= trailing_zeros_len
+            self.number = int(number_str[:-trailing_zeros_len].replace('.', ''))
+
+    def build_complete_number(self):
+        # number is a serialized repr of number & decimals (without '.' marker)
+        number_str = str(self.number)
+        if self.decimals > len(number_str):
+            return f'0.{number_str.rjust(self.decimals, "0")}'
+        return f'{number_str[:-self.decimals]}.{number_str[-self.decimals:]}'

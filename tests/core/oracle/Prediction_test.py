@@ -8,11 +8,11 @@ class PredictionTestCase(unittest.TestCase):
 
     def test_prediction_stringifies_outcome(self):
         prediction = Prediction(['OTC', 'GBP'], BigFloat('10.0'))
-        self.assertEqual("Prediction(outcome=['OTC', 'GBP'], percent=10.0, forced=False)", prediction.__str__())
+        self.assertEqual("Prediction(outcome=['OTC', 'GBP'], percent=10, forced=False)", prediction.__str__())
 
     def test_prediction_stringifies_multiple_outcomes(self):
         prediction = Prediction(['OTC', 'GBP', 'OTC'], BigFloat('10.0'))
-        self.assertEqual("Prediction(outcome=['OTC', 'GBP', 'OTC'], percent=10.0, forced=False)", prediction.__str__())
+        self.assertEqual("Prediction(outcome=['OTC', 'GBP', 'OTC'], percent=10, forced=False)", prediction.__str__())
 
     def test_forced_prediction(self):
         prediction = Prediction(['OTC', 'GBP'], BigFloat('10.0'), forced=True)

@@ -3,4 +3,4 @@ from dataclasses import dataclass, field
 
 @dataclass
 class Ignore:
-    ignore: bool = field(default=False, init=False, )
+    ignore: bool = field(default=False, init=False)
