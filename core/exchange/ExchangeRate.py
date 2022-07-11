@@ -1,12 +1,11 @@
 from dataclasses import dataclass
 
+from core.exchange.InstrumentExchange import InstrumentExchange
 from core.number.BigFloat import BigFloat
 
 
 @dataclass
-class ExchangeRate:
-    instrument: str
-    to_instrument: str
+class ExchangeRate(InstrumentExchange):
     rate: BigFloat = None
 
     def __iter__(self):
