@@ -130,3 +130,6 @@ class BigFloat:
         if complete_number.find('.') > -1:
             return complete_number.split('.')
         return complete_number, '0'
+
+    def invert(self):
+        return BigFloat('1.0') / self

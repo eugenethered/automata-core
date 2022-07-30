@@ -146,6 +146,14 @@ class BigFloatTestCase(unittest.TestCase):
         self.assertEqual(number_str, '0')
         self.assertEqual(decimal_str, '0')
 
+    def test_should_calculate_inverse_value(self):
+        bigfloat = BigFloat('38882.51')
+        self.assertEqual(bigfloat.invert(), '0.000025718504283802')
+
+    def test_should_calculate_inverse_value_from_smaller(self):
+        bigfloat = BigFloat('0.000025718504283802')
+        self.assertEqual(bigfloat.invert(), '38882.510000001006939583')
+
 
 if __name__ == '__main__':
     unittest.main()
