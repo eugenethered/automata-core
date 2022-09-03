@@ -13,3 +13,6 @@ class EnvironmentVariables:
             # todo: could ignore specific values
             options[k] = v
         return options
+
+    def url(self):
+        return self.options['URL'] if 'URL' in self.options else None
