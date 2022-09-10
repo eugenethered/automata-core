@@ -25,6 +25,18 @@ class BigFloatTestCase(unittest.TestCase):
         self.assertEqual(bigfloat.number, -1000000000000000000000000001)
         self.assertEqual(bigfloat.decimals, 18)
 
+    def test_should_have_scientific_number_awareness(self):
+        bigfloat = BigFloat(1e-12)
+        self.assertEqual(bigfloat.number, 1)
+        self.assertEqual(bigfloat.decimals, 12)
+        self.assertEqual(str(bigfloat), '0.000000000001')
+
+    def test_should_have_scientific_number_awareness_with_multi_decimal_number(self):
+        bigfloat = BigFloat(1.2e-11)
+        self.assertEqual(bigfloat.number, 12)
+        self.assertEqual(bigfloat.decimals, 12)
+        self.assertEqual(str(bigfloat), '0.000000000012')
+
     def test_should_represent_big_float_with_decimals(self):
         bigfloat = BigFloat('1000000000.000000000000000001')
         self.assertEqual(str(bigfloat), '1000000000.000000000000000001')

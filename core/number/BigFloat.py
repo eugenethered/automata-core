@@ -15,12 +15,20 @@ class BigFloat:
             self.number = int(args[0])
             self.decimals = int(args[1])
         else:
-            decimal_marker_pos = args[0].find('.')
-            if decimal_marker_pos > -1:
-                self.number = int(args[0].replace('.', ''))
-                self.decimals = len(args[0]) - decimal_marker_pos - 1
+            value_stringed = str(args[0])
+            scientific_notation_pos = value_stringed.find('e-')
+            if scientific_notation_pos > -1:
+                (number_value, number_to_shift) = value_stringed.split('e-')
+                add_point = 1 if number_value.find('.') > 0 else 0
+                self.number = int(number_value.replace('.', ''))
+                self.decimals = int(number_to_shift) + add_point
             else:
-                self.number = int(args[0])
+                decimal_marker_pos = value_stringed.find('.')
+                if decimal_marker_pos > -1:
+                    self.number = int(value_stringed.replace('.', ''))
+                    self.decimals = len(value_stringed) - decimal_marker_pos - 1
+                else:
+                    self.number = int(value_stringed)
 
     def add(self, other):
         if self.decimals == other.decimals:
